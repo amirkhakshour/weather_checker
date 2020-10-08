@@ -1,6 +1,6 @@
 import unittest
 from checker.app import create_app
-from checker.services.weather import WeatherCheckService
+from checker.api.weather.services import WeatherCheckService
 
 
 class DefaultWeatherCheckTest(unittest.TestCase):
