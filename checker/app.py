@@ -1,4 +1,5 @@
 from flask import Flask
+from checker import api
 
 
 def create_app(testing=False):
@@ -10,4 +11,12 @@ def create_app(testing=False):
     if testing is True:
         app.config["TESTING"] = True
 
+    register_blueprints(app)
+
     return app
+
+
+def register_blueprints(app):
+    """register all blueprints for application
+    """
+    app.register_blueprint(api.views.blueprint)
