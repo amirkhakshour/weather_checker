@@ -9,7 +9,7 @@ from .exceptions import APIError
 class WeatherAPIRequester:
     @classmethod
     def _build_req_url(cls, city, base_url=config.WEATHER_API_URL):
-        return '%s&%s' % (base_url, f'&q={city},de')
+        return '%s%s' % (base_url, f'&q={city},de')
 
     @classmethod
     def get(cls, city):
