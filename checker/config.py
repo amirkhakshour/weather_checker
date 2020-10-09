@@ -25,3 +25,4 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # ------------------------
 WEATHER_API_KEY = '8ca1bf554fe26dff41d635d4e2f866ed'
 WEATHER_API_URL = f'http://api.openweathermap.org/data/2.5/weather?appid={WEATHER_API_KEY}'
+WEATHER_RIVAL_CITY_NAME = 'Köln'
