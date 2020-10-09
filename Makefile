@@ -22,3 +22,15 @@ retest: ## Run failed tests only
 
 coverage: ## Generate coverage report
 	@poetry run $(PYTEST) --cov=checker --cov-report=term-missing
+
+##################
+# Run on docker
+##################
+docker-build:
+	docker-compose build
+
+docker-run:
+	docker-compose up
+
+docker-test:
+	docker-compose run -v $(PWD)/tests:/app/tests:ro app pytest
