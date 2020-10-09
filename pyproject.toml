@@ -12,6 +12,7 @@ click = "^7.1.2"
 python-dotenv = "^0.14.0"
 pytest = "^6.1.1"
 marshmallow = "^3.8.0"
+requests = "^2.24.0"
 
 [tool.poetry.dev-dependencies]
 
