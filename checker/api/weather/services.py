@@ -44,7 +44,7 @@ class WeatherCheckService:
         results = []
         for checker_name, checker in self._registry.items():
             result = self.run_checker(checker, location=location)
-            results.append(result)
+            results.append(dict(name=checker_name, result=result))
 
         return results
 
@@ -59,7 +59,7 @@ class WeatherCheckService:
         }
         return result
 
-    def register(self):
+    def register(self, name=None):
         """
         Register a checker service.
 
@@ -68,7 +68,7 @@ class WeatherCheckService:
         """
 
         def wrapper(checker_service):
-            self._registry[checker_service.__name__] = checker_service
+            self._registry[name or checker_service.__name__] = checker_service
             return checker_service
 
         return wrapper

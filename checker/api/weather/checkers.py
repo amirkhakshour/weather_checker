@@ -3,7 +3,7 @@ from checker import config
 from .services import checker, WeatherAPIConsumer
 
 
-@checker.register()
+@checker.register(name='naming')
 def check_name_len_is_odd(location):
     """len of name is odd or even"""
     if len(location['name']) % 2:
@@ -11,7 +11,7 @@ def check_name_len_is_odd(location):
     return False, "Name len is Even!"
 
 
-@checker.register()
+@checker.register(name='daytemp')
 def check_day_temp_is_normal(location):
     """Temperature is normal?"""
     now_time = datetime.utcnow().time()
@@ -22,7 +22,7 @@ def check_day_temp_is_normal(location):
     return False, "Name len is Even!"
 
 
-@checker.register()
+@checker.register(name='rival')
 def check_rival_comparison(location):
     """Is it warmer than it's rival?"""
     rival_city = WeatherAPIConsumer.get(config.WEATHER_RIVAL_CITY_NAME)
@@ -31,4 +31,4 @@ def check_rival_comparison(location):
         return True, f"It's {temp_difference}°C " \
                      f"warmer than it's rival city {rival_city['name']}"
     return False, f"It's {temp_difference}°C " \
-                 f"colder than it's rival city {rival_city['name']}"
+                  f"colder than it's rival city {rival_city['name']}"
