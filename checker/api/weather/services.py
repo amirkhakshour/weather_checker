@@ -29,7 +29,7 @@ class WeatherAPIConsumer:
 
     @classmethod
     def get(cls, city):
-        city_json, status_code = cls.requester.get(city)
+        city_json, status_code = cls.requester.get(city=city)
         if status_code != 200:
             raise APIError(message=f"City `{city}` doesnt exists!", http_status=status_code)
         return cls.construct_from(city_json)
