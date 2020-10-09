@@ -1,4 +1,5 @@
 """Weather checker registry."""
+import time
 import requests
 from checker import config
 from .models import LocationWeather
@@ -37,6 +38,26 @@ class WeatherAPIConsumer:
 class WeatherCheckService:
     def __init__(self):
         self._registry = dict()
+
+    def check(self, location: LocationWeather):
+        # @todo add cache on checker result
+        results = []
+        for checker_name, checker in self._registry.items():
+            result = self.run_checker(checker, location=location)
+            results.append(result)
+
+        return results
+
+    def run_checker(self, checker, **kwargs):
+        passed, output = checker(**kwargs)
+        timestamp = time.time()
+        result = {
+            'info': checker.__doc__,
+            'output': output,
+            'passed': passed,
+            'timestamp': timestamp,
+        }
+        return result
 
     def register(self):
         """
