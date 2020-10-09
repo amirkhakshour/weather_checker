@@ -26,5 +26,14 @@ class DefaultWeatherCheckTest(unittest.TestCase):
         test_ok = mock.Mock(return_value=(True, "OK"))
         location = LocationWeather()
         self.checker.register('test_ok')(test_ok)
-        self.checker.check(location=location)
+        results = self.checker.check(location=location)
         test_ok.assert_called_once_with(location=location)
+        assert len(results) == 1
+        assert 'name' in results[0]
+        assert 'result' in results[0]
+
+    def test_run_checker_output_format(self):
+        test_ok = mock.Mock(return_value=(True, "OK"))
+        location = LocationWeather()
+        result = self.checker.run_checker(checker=test_ok, location=location)
+        self.assertEqual(list(result.keys()), ['info', 'output', 'passed', 'timestamp'])
