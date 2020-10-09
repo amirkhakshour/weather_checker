@@ -5,10 +5,13 @@ from .serializers import WeatherReportSerializer
 
 
 class WeatherChecker(Resource):
-    """Weather Checker endpoint"""
+    """Weather Checker endpoint
+    @todo move request param validation to a generic resource class and inherit from it.
+    """
     serializer_class = WeatherReportSerializer
 
     def get(self):
+        # validate request params
         parser = reqparse.RequestParser()
         parser.add_argument('city')
         args = parser.parse_args()
@@ -19,6 +22,7 @@ class WeatherChecker(Resource):
             location = WeatherAPIConsumer.get(city)
         except APIError as e:
             return abort(400, error=e.message)
+
         report = checker.check(location)
         serializer = self.serializer_class(report)
         if not serializer.is_valid():
